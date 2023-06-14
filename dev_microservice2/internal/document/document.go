@@ -8,6 +8,10 @@ import (
 
 type DocumentService struct{}
 
+func NewDocumentService() *DocumentService {
+	return &DocumentService{}
+}
+
 func (s *DocumentService) CreateDocument(ctx context.Context, req *pb.CreateDocumentRequest) (*pb.CreateDocumentResponse, error) {
 	// Implementation logic for creating a document
 	return &pb.CreateDocumentResponse{

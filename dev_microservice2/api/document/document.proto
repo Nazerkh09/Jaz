@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 package document;
-option go_package = "/dev_microservice2/cmd/document/";
 
 service DocumentService {
   rpc CreateDocument(CreateDocumentRequest) returns (CreateDocumentResponse) {}
