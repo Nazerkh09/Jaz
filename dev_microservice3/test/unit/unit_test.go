@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/your-username/your-app/internal/service"
+	"github.com/Nazerkh09/dev_microservice3/internal/service"
 )
 
 func TestUnit(t *testing.T) {
