@@ -9,9 +9,9 @@ import (
 	"github.com/mongodb/mongo-go-driver/mongo"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/your-username/your-app/internal/app"
-	"github.com/your-username/your-app/internal/repository"
-	"github.com/your-username/your-app/internal/service"
+	"github.com/Nazerkh09/Jaz/dev_microservice3/internal/app"
+	"github.com/Nazerkh09/dev_microservice3/internal/repository"
+	"github.com/Nazerkh09/dev_microservice3/internal/service"
 )
 
 func TestIntegration(t *testing.T) {
