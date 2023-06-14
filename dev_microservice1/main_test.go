@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -15,7 +16,6 @@ func TestHandleRegister(t *testing.T) {
 	registrationRequest := auth.RegistrationRequest{
 		Username: "testuser",
 		Password: "testpassword",
-		Email:    "test@example.com",
 	}
 
 	// Encode the request body
@@ -44,4 +44,23 @@ func TestHandleRegister(t *testing.T) {
 	// Perform additional assertions or checks based on your requirements
 }
 
-// Implement other test functions for handleLogin, handleValidateToken, and handleGetUserPermissions
+func handleRegister(w http.ResponseWriter, r *http.Request) {
+	// Parse request body
+	var registrationRequest auth.RegistrationRequest
+	err := json.NewDecoder(r.Body).Decode(&registrationRequest)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	// Perform registration logic
+	err = auth.RegisterUser(registrationRequest)
+	if err != nil {
+		log.Printf("failed to register user: %v", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	// Return success response
+	w.WriteHeader(http.StatusOK)
+}
