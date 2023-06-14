@@ -4,16 +4,15 @@ import (
 	"log"
 	"net"
 
-	pb "github.com/Nazerkh09/jaz/dev_microservice2/api/document"
 	"google.golang.org/grpc"
 )
 
 func RunGRPCServer() error {
 	grpcServer := grpc.NewServer()
 
-	documentService := &DocumentService{}
+	//documentService := &DocumentService{}
 
-	pb.RegisterDocumentServiceServer(grpcServer, documentService)
+	//pb.RegisterDocumentServiceServer(grpcServer, documentService)
 
 	lis, err := net.Listen("tcp", ":50052")
 	if err != nil {
