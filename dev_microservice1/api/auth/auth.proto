@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package auth;
+option go_package = "/dev_microservice1/api/auth/";
+
+service AuthService {
+  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse) {}
+  rpc Login(LoginRequest) returns (LoginResponse) {}
+  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse) {}
+  rpc GetUserPermissions(GetUserPermissionsRequest) returns (GetUserPermissionsResponse) {}
+}
+
+message RegisterUserRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message RegisterUserResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  bool success = 1;
+  string message = 2;
+  string access_token = 3;
+}
+
+message ValidateTokenRequest {
+  string access_token = 1;
+}
+
+message ValidateTokenResponse {
+  bool success = 1;
+  string message = 2;
+  bool valid = 3;
+}
+
+message GetUserPermissionsRequest {
+  string access_token = 1;
+}
+
+message GetUserPermissionsResponse {
+  bool success = 1;
+  string message = 2;
+  repeated string permissions = 3;
+}
