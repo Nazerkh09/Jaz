@@ -11,7 +11,7 @@ type MockUserRepository struct{}
 
 func (r *MockUserRepository) GetUserByID(userID string) (*user.User, error) {
 	// Mock implementation
-	return &user.User{ID: userID, Name: "John Doe"}, nil
+	return &user.User{Id: userID, Name: "John Doe"}, nil
 }
 
 func TestGetUserByID(t *testing.T) {
@@ -20,7 +20,7 @@ func TestGetUserByID(t *testing.T) {
 
 	// Test case
 	userID := "123"
-	expectedUser := &user.User{ID: userID, Name: "John Doe"}
+	expectedUser := &user.User{Id: userID, Name: "John Doe"}
 
 	result, err := service.GetUserByID(userID)
 

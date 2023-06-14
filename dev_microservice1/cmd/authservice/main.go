@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Nazerkh09/jaz/dev_microservice1/internal/auth"
+	auth "github.com/Nazerkh09/jaz/dev_microservice1/internal/auth"
 )
 
 func main() {
