@@ -2,7 +2,6 @@ package auth
 
 import (
 	"context"
-	"errors"
 
 	pb "github.com/Nazerkh09/jaz/dev_microservice1/api/auth"
 )
