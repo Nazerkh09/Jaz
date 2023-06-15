@@ -4,8 +4,13 @@ import (
 	"context"
 	"errors"
 
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+
 	pb "github.com/Nazerkh09/jaz/dev_microservice1/api/auth"
 )
+
+var mongoClient *mongo.Client
 
 type AuthService struct{}
 
@@ -52,20 +57,42 @@ func GetUserPermissions(userID string) ([]string, error) {
 }
 
 func Login(request LoginRequest) (string, error) {
-	// Implement the login logic here
-	// For example, you can validate the login credentials and generate a token
+	// Create a new MongoDB collection instance
+	collection := mongoClient.Database("microservice1").Collection("user")
 
-	// Return the token if login is successful
-	// Otherwise, return an error
-	return "example-token", nil
+	// Query the user document based on the provided username and password
+	filter := bson.M{
+		"username": request.Username,
+		"password": request.Password,
+	}
+	var user bson.M
+	err := collection.FindOne(context.Background(), filter).Decode(&user)
+	if err != nil {
+		return "", errors.New("invalid credentials")
+	}
+
+	// Generate and return the access token
+	token := "example-token"
+	return token, nil
 }
 
 func RegisterUser(request RegistrationRequest) error {
-	// Implement the registration logic here
-	// For example, you can validate the request fields and save the user to a database
+	// Create a new MongoDB collection instance
+	collection := mongoClient.Database("microservice1").Collection("user")
 
-	// Return an error if registration fails
-	return errors.New("registration failed")
+	// Create a user document
+	user := bson.M{
+		"username": request.Username,
+		"password": request.Password,
+	}
+
+	// Insert the user document into the collection
+	_, err := collection.InsertOne(context.Background(), user)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (s *AuthService) RegisterUser(ctx context.Context, req *pb.RegisterUserRequest) (*pb.RegisterUserResponse, error) {
