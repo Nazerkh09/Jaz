@@ -5,11 +5,37 @@ import (
 	"log"
 	"net/http"
 
+	"context"
+
+	_ "github.com/lib/pq"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+
 	pb "github.com/Nazerkh09/jaz/dev_microservice2/api/document"
 	"github.com/Nazerkh09/jaz/dev_microservice2/internal/document"
 )
 
+func connectToMongoDBCompass() (*mongo.Client, error) {
+
+	connectionString := "mongodb://localhost:27017"
+
+	clientOptions := options.Client().ApplyURI(connectionString)
+
+	client, err := mongo.Connect(context.TODO(), clientOptions)
+	if err != nil {
+		return nil, err
+	}
+
+	err = client.Ping(context.TODO(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return client, nil
+}
+
 func main() {
+
 	go document.RunGRPCServer()
 
 	router := http.NewServeMux()
